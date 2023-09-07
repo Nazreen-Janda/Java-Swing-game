@@ -1,0 +1,174 @@
+package guessGame;
+import java.util.Random;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class visibleonclick implements ActionListener{
+	
+	JFrame frame = new JFrame();
+	JLabel label1=new JLabel();
+	JLabel label2=new JLabel();
+	JLabel label3=new JLabel();
+	JLabel label4=new JLabel();
+	JPanel bpanel = new JPanel();
+	JPanel bpanel2 = new JPanel();
+	JButton button2 = new JButton();
+	JButton button3 = new JButton();
+	JButton button4 = new JButton();
+	 JTextField tf1 = new JTextField(20);
+	 JTextField tf2 = new JTextField(20);
+	 
+	 private int targetNum;
+	 private int numAttempts=0;
+   visibleonclick(){
+	   targetNum = (int)(Math.random() * 100) + 1;
+	   bpanel.setBackground(Color.black);
+	   bpanel.setBounds(10,10,400,100);
+	   bpanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+	   bpanel2.setBackground(Color.CYAN);
+	   bpanel2.setBounds(90,100,260,240);
+	   bpanel2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+	   label1.setText(" HEY! I am between 1 to 100..");
+		   label1.setForeground(Color.red);
+		   label1.setVerticalAlignment(JLabel.CENTER);
+	       label1.setHorizontalAlignment(JLabel.CENTER);
+	       label1.setFont(new Font("MV BOLI", Font.BOLD, 20));
+	       label2.setText("Guess me within 5 attempts");
+		   label2.setForeground(Color.blue);
+		   label2.setVerticalAlignment(JLabel.CENTER);
+	       label2.setHorizontalAlignment(JLabel.CENTER);
+	       label2.setFont(new Font("MV BOLI", Font.BOLD, 20));
+	       button2.setText("Submit");
+	       button2.setBackground(Color.yellow);
+	       button2.setFocusable(false);
+	       button2.addActionListener(this);
+	       button3.setText("Play Again");
+	       button3.setBackground(Color.green);
+	       button3.setFocusable(false);
+	       button3.addActionListener(this);
+	       button4.setText("Quit");
+	       button4.setBackground(Color.red);
+	       button4.setFocusable(false);
+	       button4.addActionListener(this);
+	   bpanel.add(label1);
+	   bpanel.add(label2);
+	   label4.setText("What Can I Call You??");
+	   //tf2.setText("your good name");
+	   tf2.setForeground(Color.magenta);
+	   bpanel2.add(label4);
+	   tf2.setBackground(Color.white);
+	   bpanel2.add(tf2);
+	   label3.setText("GUESS ME BELOW!!");
+	   label3.setForeground(Color.black);
+	   bpanel2.add(label3);
+	   bpanel2.add(tf1);
+       bpanel2.add(button2);
+       bpanel2.add(button4);
+       bpanel2.add(button3);
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setVisible(true);
+    frame.setSize(450, 310);
+    frame.setTitle("Guess Me");
+    frame.getContentPane().setBackground(Color.red);
+    frame.setResizable(false);
+    frame.setLayout(null);
+    frame.add(bpanel);
+    frame.add(bpanel2);
+    
+    
+}
+   
+ 
+ @Override
+   public void actionPerformed(ActionEvent e) {
+      // code(e);
+	//int targetNum=0;
+	
+	if (e.getSource() == button2) {
+		String name=tf2.getText();
+		tf2.setEditable(false);
+				// check if the Submit button was clicked
+           try {
+               int guess = Integer.parseInt(tf1.getText()); // parse the user's input as an integer
+               if (guess < 1 || guess > 100) {
+                   // handle the case where the user's guess is outside the range of 1 to 100
+                   JOptionPane.showMessageDialog(null, "Hello "+ name+" Please enter a number between 1 and 100.");
+               } else {
+                   // handle the case where the user's guess is within the range of 1 to 100
+                   numAttempts++; // increment the number of attempts
+                   if (guess == targetNum) {
+                       // handle the case where the user correctly guesses the target number
+                	   ImageIcon icon = new ImageIcon("resources/congo.png");
+                	   Image scaledImage = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                	   ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                	   
+                       JOptionPane.showMessageDialog(null, "Congratulations "+name+",you guessed the number in " + numAttempts + " attempts!","CONGRATS",JOptionPane.INFORMATION_MESSAGE,scaledIcon);
+                       button2.setEnabled(false);
+                      // frame.dispose();
+                   } else if (numAttempts == 5) {
+                       // handle the case where the user has used all 5 attempts without guessing correctly
+                	   ImageIcon icon = new ImageIcon("resources/sorry.jpg");
+                	   Image scaledImage = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                	   ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                       JOptionPane.showMessageDialog(null, "Sorry "+name+",you didn't guess the number. The number was " + targetNum + ".","OOPS",JOptionPane.INFORMATION_MESSAGE,scaledIcon);
+                       button2.setEnabled(false);
+                      // frame.dispose();
+                   } else if (guess < targetNum) {
+                       // handle the case where the user's guess is too low
+                       //JOptionPane.showMessageDialog(null, "Hey "+name+" Your guess is too low. You have " + (5 - numAttempts) + " attempts left.");
+                	   ImageIcon icon = new ImageIcon("resources/thumbdown.jpg");
+                	   Image scaledImage = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                	   ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                	   JOptionPane.showMessageDialog(null,"Hey "+name+" Your guess is too low. You have " + (5 - numAttempts) + " attempts left.","GUESS HIGH" ,JOptionPane.INFORMATION_MESSAGE,scaledIcon);
+
+                   } else {
+                       // handle the case where the user's guess is too high
+                	   ImageIcon icon = new ImageIcon("resources/think.jpg");
+                	   Image scaledImage = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                	   ImageIcon scaledIcon = new ImageIcon(scaledImage);
+                       JOptionPane.showMessageDialog(null,"Hey "+name+" Your guess is too high. You have " + (5 - numAttempts) + " attempts left.","GUESS LOW",JOptionPane.INFORMATION_MESSAGE,scaledIcon);
+                   }
+               }
+           } catch (NumberFormatException ex) {
+               // handle the case where the user's input is not a valid integer
+               JOptionPane.showMessageDialog(null, "Please enter a valid number.");
+           }
+		//code(e);
+		
+       } 
+	else if(e.getSource()==button4) {
+ 	   frame.dispose();
+    }
+	else if(e.getSource()==button3) {
+		startGame();
+	}
+	else if (e.getSource() == Launching.button1) { // check if the Start button was clicked
+           targetNum = (int) (Math.random() * 100) + 1; // generate a random number between 1 and 100 and assign it to targetNum
+           //JOptionPane.showMessageDialog(null, "A number between 1 and 100 has been generated. You have 5 attempts to guess the number.");
+           numAttempts = 0; // reset the number of attempts
+       }
+   }
+ private void startGame() {
+     numAttempts = 0;
+     targetNum = (int) (Math.random() * 100) + 1;
+     tf1.setText("0");
+     button2.setEnabled(true);
+ }
+ }
+
+
+
+
+

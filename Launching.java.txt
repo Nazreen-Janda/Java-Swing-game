@@ -1,0 +1,163 @@
+package guessGame;
+
+/*import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class launching {
+	JFrame frame = new JFrame();
+	JLabel label = new JLabel();
+	JButton button = new JButton("Start");
+	launching(){
+		ImageIcon icon = new ImageIcon("C:/Users/sohai/Downloads/guess.png");
+		int width=icon.getIconWidth()/2;
+		int height=icon.getIconHeight()/2;
+		Image scaledImage=icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		ImageIcon scaledIcon = new ImageIcon(scaledImage);
+		
+		label.setText("Are you ready??");
+		label.setIcon(scaledIcon);
+		label.setHorizontalTextPosition(JLabel.CENTER);
+		label.setVerticalTextPosition(JLabel.TOP);
+		label.setForeground(Color.red);
+		label.setIconTextGap(-25);
+		label.setVerticalAlignment(JLabel.CENTER);
+		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setFont(new Font("MV BOLI",Font.PLAIN,25));
+		//label.setBounds(400,260,400,100);
+		//button.setText("Start");
+		button.setFocusable(false);
+		button.setPreferredSize(new Dimension(100,50));
+		//button.setBounds(100, 160, 200,40);
+		button.setBackground(Color.red);
+		button.setForeground(Color.pink);
+		//label.setBackground(Color.PINK);
+		//label.setOpaque(true);
+		//label.add(button);
+		JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        panel.add(button);
+        frame.add(panel, BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		frame.setSize(450,450);
+		frame.setTitle("ready to play");
+		frame.getContentPane().setBackground(Color.black);
+		frame.setLayout(new BorderLayout());
+		frame.setResizable(false);
+		frame.add(label,BorderLayout.NORTH);
+		frame.add(button,BorderLayout.CENTER);
+		//frame.add(label);
+		//frame.add(button);
+	}
+}*/
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class Launching implements ActionListener {
+    JFrame frame = new JFrame();
+    JLabel label = new JLabel();
+    static JButton button1 = new JButton("Start");
+    JPanel panel = new JPanel(new GridBagLayout());
+
+    Launching() {
+        //ImageIcon icon = new ImageIcon("C:/Users/sohai/Downloads/guess.png");
+    	ImageIcon icon = new ImageIcon("resources/guess.png");
+
+    	//ImageIcon icon = new ImageIcon(getClass().getResource("/resources/guess.png"));
+        int width = icon.getIconWidth() / 2;
+        int height = icon.getIconHeight() / 2;
+        Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        label.setText("Are you ready??");
+        label.setIcon(scaledIcon);
+        label.setHorizontalTextPosition(JLabel.CENTER);
+        label.setVerticalTextPosition(JLabel.TOP);
+        label.setForeground(Color.red);
+        label.setIconTextGap(-25);
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setFont(new Font("MV BOLI", Font.PLAIN, 25));
+
+        // Set the preferred size of the button to 100x50
+        button1.setPreferredSize(new Dimension(150, 50));
+
+        button1.setText("Start");
+        button1.setFocusable(false);
+        button1.setBackground(Color.red);
+        button1.setForeground(Color.black);
+        button1.addActionListener(this);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setSize(450, 450);
+        frame.setTitle("Ready to play");
+        frame.getContentPane().setBackground(Color.black);
+        frame.setResizable(false);
+
+        // Create a new panel with GridBagLayout
+        
+        panel.setOpaque(false);
+
+        // Add the label and button to the panel using GridBagConstraints
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.weighty = 1.5;
+        panel.add(label, gbc);
+
+        gbc.gridy = 1;
+        gbc.weighty = 1.0;
+        panel.add(button1, gbc);
+
+        // Add the panel to the content pane with BorderLayout.CENTER
+        frame.getContentPane().add(panel, BorderLayout.CENTER);
+        //frame.dispose();
+    }
+
+	@Override
+	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==button1) {
+			
+			new visibleonclick();
+			
+			
+	           frame.dispose();
+		}
+		
+	}
+
+    
+}
+
+
+
+
+

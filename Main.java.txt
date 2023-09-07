@@ -1,0 +1,8 @@
+package guessGame;
+
+public class main {
+	public static void main(String[] args) {
+Launching l = new Launching();
+		//visibleonclick v=new visibleonclick();
+	}
+}
